@@ -1,12 +1,13 @@
 import { useState, useContext, type FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import api from '../services/api';
 import type { AuthResponse } from '../types';
 
 export default function Login() {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); 
   const [error, setError] = useState('');
   
   const { login } = useContext(AuthContext);
@@ -15,10 +16,13 @@ export default function Login() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
-      // O TypeScript sabe que 'response.data' deve bater com AuthResponse
-      const response = await api.post<AuthResponse>('/login', { email, password });
+      const response = await api.post<AuthResponse>('/auth', { 
+        username, 
+        email 
+      });
       
       const { user, token } = response.data;
       
@@ -26,35 +30,47 @@ export default function Login() {
       navigate('/chat');
 
     } catch (err: any) {
-      setError('E-mail ou senha inválidos.');
+      setError('Erro ao entrar. Tente novamente.');
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-container">
-      <h2>Login Tech4um</h2>
+      <h2>Que bom ter você aqui!</h2>
+      <p>Para participar de um 4um é necessário fazer login.</p>
+      
       {error && <p style={{ color: 'red' }}>{error}</p>}
+
       <form onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <div>
+          <label>Nome</label>
+          <input 
+            type="text" 
+            placeholder="Seu nome de exibição"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
         <br />
-        <input 
-          type="password" 
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div>
+          <label>E-mail</label>
+          <input 
+            type="email" 
+            placeholder="seu@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
         <br />
-        <button type="submit">Entrar</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Entrando...' : 'Entrar'}
+        </button>
       </form>
-      <p>Não tem conta? <Link to="/register">Registar</Link></p>
     </div>
   );
 }

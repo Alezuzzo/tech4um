@@ -4,7 +4,6 @@ import { PrivateRoute } from './components/PrivateRoute';
 
 // importando as paginas
 import Login from './pages/Login';
-import Register from './pages/Register';
 
 // chat provisório
 const Chat = () => <h2>Chat em Tempo Real (Logado!)</h2>;
@@ -16,7 +15,6 @@ function App() {
         <Routes>
           {/* Rotas Públicas */}
           <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           
           {/* Rotas Privadas (só entra se tiver logado) */}
           <Route 
