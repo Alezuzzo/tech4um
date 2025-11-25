@@ -7,8 +7,8 @@
     },
     {
       "id": "2",
-      "username": "Aoki",
-      "email": "aoki@test.com"
+      "username": "Felipe",
+      "email": "felipe@test.com"
     }
   ],
   "rooms": [
@@ -40,6 +40,21 @@
       "id": "90c9",
       "username": "Thalles",
       "email": "thalles@teste.com"
+    },
+    {
+      "id": "49ae",
+      "username": "Thalles",
+      "email": "Thalles@teste.com"
+    },
+    {
+      "id": "68fd",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "bfbd",
+      "username": "Thalles",
+      "email": "thalles@test.com"
     }
   ]
 }
