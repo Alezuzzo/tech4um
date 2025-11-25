@@ -1,6 +1,3 @@
-import React from 'react';
-
-// Interface partilhada (pode mover para um ficheiro types.ts no futuro)
 export interface Room {
   id: string;
   name: string;
