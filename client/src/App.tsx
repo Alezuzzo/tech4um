@@ -4,12 +4,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import { PrivateRoute } from './components/PrivateRoute';
 import Login from './pages/Login';
 import Header from './components/Header';
+import Home from './pages/Home';
 
-const Home = () => (
-  <div className="text-center text-gray-400 mt-20">
-    <h2 className="text-xl">conteudo</h2>
-  </div>
-);
 
 const Chat = () => (
   <div className="bg-white p-6 rounded-lg shadow-md">
@@ -28,7 +24,7 @@ function App() {
           
           <Header onLoginClick={() => setIsLoginOpen(true)} />
 
-          <main className="flex-1 w-full max-w-7xl mx-auto p-4">
+          <main className="flex-1 w-full max-w-6xl mx-auto">
             <Routes>
               <Route path="/" element={<Home />} />
               
