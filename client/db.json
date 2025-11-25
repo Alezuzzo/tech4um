@@ -1,0 +1,90 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "2",
+      "username": "Felipe",
+      "email": "felipe@test.com"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "sala-1",
+      "name": "Dev Raiz",
+      "description": "Discussão sobre C, Assembly e Café sem açúcar.",
+      "count": 12,
+      "creatorId": "1"
+    },
+    {
+      "id": "sala-2",
+      "name": "React Lovers",
+      "description": "Componentes, Hooks e muito CSS.",
+      "count": 45,
+      "creatorId": "2"
+    },
+    {
+      "id": "sala-3",
+      "name": "Off-Topic",
+      "description": "Memes e conversas aleatórias.",
+      "count": 100,
+      "creatorId": "1"
+    }
+  ],
+  "messages": [],
+  "auth": [
+    {
+      "id": "90c9",
+      "username": "Thalles",
+      "email": "thalles@teste.com"
+    },
+    {
+      "id": "49ae",
+      "username": "Thalles",
+      "email": "Thalles@teste.com"
+    },
+    {
+      "id": "68fd",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "bfbd",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "7323",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "37e2",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "1f3e",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "7a8e",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "b1ce",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    },
+    {
+      "id": "34dd",
+      "username": "Thalles",
+      "email": "thalles@test.com"
+    }
+  ]
+}

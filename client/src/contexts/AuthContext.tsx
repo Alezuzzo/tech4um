@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect } from 'react';
 import socket from '../services/socket';
-import type {ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { User } from '../types';
 import api from '../services/api';
 
-// Define o formato do nosso Contexto
+// define o formato do nosso Contexto
 interface AuthContextType {
   user: User | null;
   login: (userData: User, token: string) => void;
@@ -26,25 +26,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const savedUser = localStorage.getItem('user');
     const savedToken = localStorage.getItem('token');
 
-    if (savedUser && savedToken) {
-      setUser(JSON.parse(savedUser));
-      api.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
-      socket.connect();
+    //Só entra se existir e não for a string "undefined"
+    if (savedUser && savedToken && savedUser !== "undefined") {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        setUser(parsedUser);
+
+        api.defaults.headers.common['Authorization'] = `Bearer ${savedToken}`;
+        //socket.connect();
+      } catch (error) {
+        // Se o JSON estiver quebrado, limpa tudo silenciosamente
+        console.error("Cache limpo devido a erro de leitura:", error);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        setUser(null);
+      }
     }
   }, []);
 
   const login = (userData: User, token: string) => {
     setUser(userData);
-    
+
     // Salva no LocalStorage
     localStorage.setItem('user', JSON.stringify(userData));
     localStorage.setItem('token', token);
-    
+
     // Configura o token para as próximas requisições
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    
+
     // Conecta o socket
-    socket.connect();
+    //socket.connect();
   };
 
   const logout = () => {
