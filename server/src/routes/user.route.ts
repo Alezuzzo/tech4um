@@ -6,5 +6,6 @@ const userRouter = express.Router();
 
 userRouter.patch('/me', authenticateToken, userController.ctrlUpdateUserData);
 userRouter.delete('/me', authenticateToken, userController.ctrlDeleteUser);
+userRouter.patch('/me/password', authenticateToken, userController.ctrlUpdatePassword);
 
 export default userRouter;
