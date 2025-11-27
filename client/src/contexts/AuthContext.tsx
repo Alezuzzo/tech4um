@@ -11,6 +11,7 @@ interface AuthContextType {
   logout: () => void;
   isAuthenticated: boolean;
   loading: boolean;
+  updateUser: (user: any) => void;
 }
 
 // Cria o contexto com um valor inicial "undefined" (vai ser preenchido pelo Provider)
@@ -58,8 +59,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     socket.disconnect();
   };
 
+  const updateUser = (newUser: any) => {
+    setUser(newUser);
+    localStorage.setItem('user', JSON.stringify(newUser));
+  };
+
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, loading, updateUser }}>
       {/* Se estiver carregando, mostra nada (ou um spinner) para não chutar o usuário */}
       {!loading && children}
     </AuthContext.Provider>

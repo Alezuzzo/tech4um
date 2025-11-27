@@ -14,7 +14,6 @@ export async function ctrlUpdateUserData(req: Request, res: Response) {
 
         //limpar campos proibidos
         delete updateData.id;
-        //impede alteração de senha por essa rota
 
         //atualiza usuário
         const updatedUser = await userRepo.repUpdateUser(userId, updateData);
@@ -22,8 +21,8 @@ export async function ctrlUpdateUserData(req: Request, res: Response) {
         return res.status(200).json({
             message: "Dados atualizados com sucesso",
             user: updatedUser
+        
         });
-
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: "Erro ao atualizar dados" });

@@ -4,10 +4,10 @@ import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
 export async function registerController(req: Request, res: Response) {
-    const { nickname, email, password } = req.body;
+    const { username, email, password } = req.body;
     //pega os campos e cria um usuário
 
-    if (!nickname || !email || !password) {
+    if (!username || !email || !password) {
         return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });//verifica se os campos foram preechidos
     }
 
@@ -22,7 +22,7 @@ export async function registerController(req: Request, res: Response) {
         const hashedPassword = await argon2.hash(password);//criptografa a senha antes de salvar
 
         const newUser = await userRepo.repCreateUser({//cria o usuário no banco
-            username: nickname,
+            username: username,
             email,
             password: hashedPassword,
         });
