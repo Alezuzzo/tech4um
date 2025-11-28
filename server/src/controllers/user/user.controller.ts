@@ -92,13 +92,11 @@ export async function ctrlUpdatePassword(req: Request, res: Response) {
       return res.status(404).json({ message: "Usuário não encontrado." });
     }
 
-    // ✔ VERIFICAÇÃO COM ARGON2
     const valid = await argon2.verify(user.password, currentPassword);
     if (!valid) {
       return res.status(401).json({ message: "Senha atual incorreta." });
     }
 
-    // ✔ HASH NOVO COM ARGON2
     const hashed = await argon2.hash(newPassword);
 
     await userRepo.repUpdateUser(userId, { password: hashed });
