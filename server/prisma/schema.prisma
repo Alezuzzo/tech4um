@@ -13,16 +13,16 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
-  username  String   @unique // o front manda 'username'
+  username  String   @unique
   email     String   @unique
   password  String
 
   isAdmin   Boolean  @default(false)
-  isBanned  Boolean  @default(false)   
-  
+  isBanned  Boolean  @default(false)
+
   createdAt DateTime @default(now())
 
- //relacoes para o chat
+  // relações 1:N – não colocar onDelete aqui!
   messages     Message[]
   createdRooms Room[]    @relation("RoomCreator")
   joinedRooms  Room[]
@@ -33,15 +33,12 @@ model Room {
   name        String    @unique
   description String?
   createdAt   DateTime  @default(now())
-  
-  //quem criou a sala
-  creatorId   String
-  creator     User      @relation("RoomCreator", fields: [creatorId], references: [id])
 
-  //mensagens da sala
+  creatorId   String
+  creator     User      @relation("RoomCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+
   messages    Message[]
 
-  //usuarios na sala
   usersInRoom User[]
 }
 
@@ -50,16 +47,15 @@ model Message {
   content   String
   createdAt DateTime @default(now())
   edited    Boolean  @default(false)
-  
-  // quem mandou
+
+  // FK → User
   senderId  String
-  sender    User     @relation(fields: [senderId], references: [id])
+  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
-  // sala da mensagem
+  // FK → Room
   roomId    String
-  room      Room     @relation(fields: [roomId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
-  // suporte a Mensagem Privada
   isPrivate  Boolean @default(false)
   receiverId String?
 }
